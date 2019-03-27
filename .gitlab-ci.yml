@@ -13,5 +13,5 @@ Test:
     - export FLASK_ENV=test
     - export SPY_LOG_LOGGER="pretty-no-meta"
     - pip install -r requirements.txt
-    - pip install -e .
+    - export PYTHONPATH="${PYTHONPATH}:${PWD}"
     - ./run-tests.sh
