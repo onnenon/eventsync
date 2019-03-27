@@ -1,1 +1,4 @@
 flask
+nose
+coverage
+rednose
