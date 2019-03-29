@@ -1,0 +1,17 @@
+Test:
+  image: python:3.7
+
+  services:
+    - postgres:9.6-alpine
+
+  variables:
+    POSTGRES_DB: eventSyncDB
+    POSTGRES_USER: eventAdmin
+    POSTGRES_PASSWORD: password
+
+  script:
+    - export FLASK_ENV=test
+    - export SPY_LOG_LOGGER="pretty-no-meta"
+    - pip install -r requirements.txt
+    - export PYTHONPATH="${PYTHONPATH}:${PWD}"
+    - ./run-tests.sh
