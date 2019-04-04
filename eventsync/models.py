@@ -2,8 +2,8 @@
 Database Models go here
 """
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
@@ -64,4 +64,3 @@ class Event(db.Model):
 
 # class Friend(db.Model):
 #     __tablename__ = "friends"
-

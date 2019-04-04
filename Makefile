@@ -1,5 +1,3 @@
-run: clean
-	flask run
 
 clean:
 	find . -name '*.pyc' -exec rm '{}' ';'
@@ -11,3 +9,7 @@ test: clean
 
 run:
 	flask run --host=0.0.0.0
+
+format:
+	black eventsync tests
+	isort -rc eventsync tests
