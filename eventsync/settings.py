@@ -1,6 +1,6 @@
 import os
-import spylogger
 
+import spylogger
 
 LOGGER = spylogger.get_logger()
 

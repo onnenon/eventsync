@@ -1,14 +1,16 @@
-from flask import Flask, render_template, session, url_for, flash, request, redirect
+import bcrypt
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_login import (
+    LoginManager,
     current_user,
     login_required,
     login_user,
     logout_user,
-    LoginManager,
 )
-from eventsync.models import db, User
+
+from eventsync.models import User, db
 from eventsync.settings import LOGGER
-import bcrypt
+
 
 app = Flask(__name__)
 app.config.from_object("eventsync.settings")
