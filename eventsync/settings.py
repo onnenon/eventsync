@@ -1,6 +1,10 @@
+import os
 import spylogger
 
+
 LOGGER = spylogger.get_logger()
+
+SECRET_KEY = os.urandom(24)
 
 # DATABASE
 SQLALCHEMY_DATABASE_URI = "postgresql://{}:{}@{}:{}/{}".format(
