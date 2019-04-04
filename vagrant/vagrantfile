@@ -1,0 +1,55 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+BOX_NAME = "eventsync-db"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+$script = <<SCRIPT
+  set -e
+
+  echo "-------------------- updating package lists"
+  apt-get update -y
+
+  # gotta put this before the upgrade, b/c it reboots and then all commands are lost
+  echo "-------------------- installing postgres"
+  apt-get install -y postgresql
+
+  # fix permissions
+  echo "-------------------- fixing listen_addresses on postgresql.conf"
+  sed -i "s/#listen_address.*/listen_addresses '*'/" /etc/postgresql/10/main/postgresql.conf
+
+  echo "-------------------- fixing postgres pg_hba.conf file"
+  # replace the ipv4 host line with the above line
+  echo "host    all         all         0.0.0.0/0             md5" >> /etc/postgresql/10/main/pg_hba.conf
+
+  echo "-------------------- ensure postgres is running"
+  service postgresql restart
+  sleep 3
+
+  echo "-------------------- creating postgres eventAdmin role with password password"
+  sudo su postgres -c "psql -d postgres -c \\"CREATE ROLE eventadmin SUPERUSER LOGIN PASSWORD 'password';\\""
+
+  echo "-------------------- creating database"
+  sudo su postgres -c "createdb -E UTF8 -T template0 --locale=en_US.utf8 -O eventadmin eventSyncDB"
+
+SCRIPT
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.hostname = BOX_NAME
+  config.vm.define BOX_NAME
+  config.vm.provider "virtualbox" do |v|
+    v.name = BOX_NAME
+  end
+  config.vm.network :forwarded_port, guest: 5432, host: 5432
+  config.vm.provision "shell", inline: $script
+  config.vm.post_up_message = <<-HEREDOC
+    ------- DATABASE CONNECTION DETAILS -------
+    Host: localhost
+    Port: 5432
+    Username: eventadmin 
+    Password: password 
+    Database: eventSyncDB
+  HEREDOC
+end

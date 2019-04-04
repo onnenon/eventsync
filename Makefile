@@ -13,3 +13,15 @@ run:
 format:
 	black eventsync tests
 	isort -rc eventsync tests
+
+db-up:
+	cd vagrant && vagrant up
+
+db-reset:
+	cd vagrant && \
+	vagrant destroy -f eventsync-db && vagrant up
+
+db-destroy:
+	cd vagrant && \
+	vagrant destroy -f eventsync-db
+

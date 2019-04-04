@@ -2,9 +2,9 @@ version: "3"
 services:
   db:
     restart: always
-    image: "postgres:9.6"
+    image: "postgres:10"
     environment:
-      POSTGRES_USER: "eventAdmin"
+      POSTGRES_USER: "eventadmin"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "eventSyncDB"
     ports:
@@ -14,13 +14,13 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - db
+      - eventsync-db
     environment:
       FLASK_APP: "eventsync"
       FLASK_DEBUG: 1
       DB_HOST: "db"
       DB_PORT: "5432"
-      DB_USERNAME: "eventAdmin"
+      DB_USERNAME: "eventadmin"
       DB_PASSWORD: "password"
       DB_NAME: "eventSyncDB"
       SPY_LOG_LOGGER: "pretty-no-meta"
