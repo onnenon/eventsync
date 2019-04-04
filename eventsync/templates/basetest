@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Arial, Helvetica; 
+  margin: 0;
+}
+
+.header {
+  padding: 80px;
+  text-align: center;
+  background: #7FDBFF;
+  color: white;
+}
+
+
+.header h1 { /*Heading Font Size */
+  font-size: 40px;
+}
+
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+
+.navbar a { /* Navigation bar style links */
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+
+
+.navbar a.right {
+  float: right;
+}
+
+
+.navbar a:hover {
+  background-color: #dddd;
+  color: black;
+}
+
+
+.navbar a.active {
+  background-color: #6667;
+  color: white;
+}
+
+
+.row {  
+  display: -ms-flexbox; 
+  display: flex;
+  -ms-flex-wrap: wrap; 
+  flex-wrap: wrap;
+}
+
+
+.side {
+  -ms-flex: 30%; 
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.main {   
+  -ms-flex: 70%; /* IE10 */
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>EventSync</h1>
+  <p>A website created by <b>Group 15</b>.</p>
+</div>
+
+<div class="navbar">
+  <a href="#" class="active">Home</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#" class="right">Link</a>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h3>TITLE HEADING</h3>
+    <p>Insert Text</p>
+
+  </div>
+  <div class="main">
+    <h2>TITLE HEADING</h2>
+    <p>Insert Text</p>
+    <h2>TITLE HEADING</h2>
+    <h5>Insert Text</h5>
+
+    <p>Insert Text</p>
+  </div>
+</div>
+
+<div class="footer">
+  <h2>ComS319 Group 15</h2>
+</div>
+
+</body>
+</html>
