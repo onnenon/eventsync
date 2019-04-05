@@ -8,7 +8,7 @@ test: clean
 	./run-tests.sh
 
 run:
-	flask run --host=0.0.0.0
+	cd eventsync && flask run --host=0.0.0.0
 
 format:
 	black eventsync tests
