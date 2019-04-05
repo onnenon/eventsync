@@ -4,6 +4,7 @@
 
 *.vagrant
 *.log
+*app.db
 
 ### Flask ###
 instance/*
