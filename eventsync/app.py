@@ -139,5 +139,15 @@ def create_event():
     return render_template("create_event.html", user=current_user)
 
 
+@app.route("/delete_event", methods=["POST"])
+def delete_event():
+    event_id = request.form["event_id"]
+    event = Event.get_event(event_id)
+    if event:
+        event.delete()
+    flash("Event Deleted." "Success")
+    return redirect(url_for("event_list"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -61,6 +61,15 @@ class Event(db.Model):
         db.DateTime(timezone=True), default=datetime.utcnow, nullable=False
     )
 
+    @staticmethod
+    def get_event(event_id):
+        """Returns a Event Object for a specific event, if it exists.
+
+        Args:
+            event_id: event_id to search for
+        """
+        return Event.query.filter_by(id=event_id).first()
+
     def save(self):
         """Addes the non-existing event to the DB."""
         db.session.add(self)
@@ -71,6 +80,15 @@ class Event(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+
+"""
+    Needed Tables:
+
+        items: Items that belong to a specific event
+        belongs_to: user ids of users belonging to an event id
+        tags: string tags of items "Dessert" or "Drink"
+        invites: pending invites
+"""
 
 # class Friend(db.Model):
 #     __tablename__ = "friends"
