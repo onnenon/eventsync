@@ -4,9 +4,13 @@ import spylogger
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
-LOGGER = spylogger.get_logger()
+LOGGER = spylogger.get_logger(log_level="DEBUG")
 
 SECRET_KEY = os.urandom(24)
+
+FLASK_ENV = "dev"
+
+DEBUG = True
 
 # DATABASE
 postgresql = "postgresql://{}:{}@{}:{}/{}".format(

@@ -57,9 +57,19 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
     creator = db.Column(db.String(30), db.ForeignKey("users.username"), nullable=False)
-    date_ = db.Column(
+    date_time = db.Column(
         db.DateTime(timezone=True), default=datetime.utcnow, nullable=False
     )
+
+    def save(self):
+        """Addes the non-existing event to the DB."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        """Deletes the event from the DB."""
+        db.session.delete(self)
+        db.session.commit()
 
 
 # class Friend(db.Model):
