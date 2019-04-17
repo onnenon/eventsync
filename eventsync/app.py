@@ -40,69 +40,14 @@ def index():
         return redirect(url_for("event_list"))
     return render_template("index.html")
 
-
-@app.route("/login", methods=["POST"])
-def login():
-    """Authentication logic here
-
-    If authenticated, will return a redirect to /event_list
-    else will redirect to index
-    """
-    username = request.form["username"]
-    password = request.form["password"]
-
-    user = User.get_user(username)
-
-    if user is None:
-        flash("User not found, please create an account.", "Error")
-        return redirect(url_for("index"))
-
-    try:
-        if bcrypt.checkpw(password.encode("utf8"), user.pw_hash):
-            login_user(user)
-            flash("You are now signed in", "Success")
-            return redirect(url_for("event_list"))
-    except Exception as e:
-        LOGGER.error({"Exception", e})
-    flash("Login failed", "Error")
-    return redirect(url_for("index"))
-
-
-@app.route("/logout", methods=["GET", "POST"])
-def logout():
-    logout_user()
-    return redirect(url_for("index"))
-
-
-@app.route("/register", methods=["POST"])
-def register():
-    """User registration logic here
-    
-    should return a redirect to either
-    register, if registration fails, or to event_list if successful
-    """
-    username = request.form["username"]
-    password = request.form["password"]
-
-    if password != request.form["confirm_password"]:
-        flash("Passwords do not match", "Error")
-        return redirect(url_for("create_account"))
-
-    user = User.get_user(username)
-    if user is None:
-        hashed = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt())
-        record = User(username=username, pw_hash=hashed)
-        record.save()
-        flash("Registration Complete", "Success")
-    else:
-        flash("User already exists.", "Error")
-    return redirect(url_for("index"))
-
-
-@app.route("/create_account", methods=["GET"])
-def create_account():
-    return render_template("create_account.html")
-
+from eventsync.Blueprints.login import log_in
+app.register_blueprint(log_in)
+from eventsync.Blueprints.logout import log_out
+app.register_blueprint(log_out)
+from eventsync.Blueprints.register import registeration
+app.register_blueprint(registeration)
+from eventsync.Blueprints.create_account import createaccount
+app.register_blueprint(createaccount)
 
 @app.route("/event_list", methods=["GET"])
 @login_required
@@ -116,7 +61,7 @@ def event_list():
 def register_event():
     """Event creation logic here
 
-    Should return to create_event if fails, els should return to event_list
+    Should return to create_event if fails, else should return to event_list
     """
     title = request.form["title"]
     date = request.form["date"]
