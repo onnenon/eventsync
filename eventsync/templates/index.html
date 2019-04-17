@@ -33,7 +33,7 @@
       </div>
       <a href="{{ url_for('index') }}"><h1>EventSync</h1></a>
       <div class="login">
-        <form action="{{ url_for('login') }}" method="POST" autocomplete="off">
+        <form action="{{ url_for('log_in.login') }}" method="POST" autocomplete="off">
           <input type="text" name="username" placeholder="username" required />
           <br />
           <input
@@ -46,7 +46,7 @@
           <input type="submit" value="Login" />
         </form>
       </div>
-      <a href="{{ url_for('create_account') }}">Create account</a>
+      <a href="{{ url_for('createaccount.create_account') }}">Create account</a>
     </div>
   </body>
 </html>
