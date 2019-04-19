@@ -75,3 +75,23 @@ def test_incorrect_password(client):
         follow_redirects=True,
     )
     assert b"Login failed"in resp.data
+
+def test_login_successful(client):
+    """Tests user login.
+
+    Tests that when a user is logged in successfully that they receive a flash
+    message saying "You are now signed in, and that they start with no events
+    created.
+    """
+    client.post(
+        "/register",
+        data=dict(password="does", confirm_password="does", username="testUser4"),
+        follow_redirects=True,
+    )
+    resp = client.post(
+        "/login",
+        data=dict(password="does", username="testUser4"),
+        follow_redirects=True,
+    )
+    assert b"You are now signed in"in resp.data
+    assert b"You have no events" in resp.data
