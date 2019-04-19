@@ -31,7 +31,7 @@ def init_app():
 def index():
     if "user_id" in session:
         return redirect(url_for("events.event_list"))
-    return render_template("index.html")
+    return render_template("indextest.html")
 
 
 if __name__ == "__main__":
