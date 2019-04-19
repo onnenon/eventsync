@@ -77,6 +77,11 @@ def test_login_successful(client):
     assert b"You have no events" in resp.data
 
 def test_create_event(client):
+    """Tests event creation. 
+    Tests that an event can be created, by checking to make sure a flash message is 
+    recieved saying "Event created"
+    
+    """
     create_account(client, "testUser5", "pass")
     login(client, "testUser5", "pass")
     resp = client.post(
