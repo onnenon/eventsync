@@ -1,5 +1,54 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <h1>Event List Page</h1>
+  <h2>Events</h2>
 </div>
+{% if user.events %}
+<div>
+  <table>
+    <th>Event</th>
+    <th>Date & Time</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    {% for event in user.events %}
+    <tr>
+      <td>{{ event.title }}</td>
+      <td>
+        {{ event.date_time }}
+      </td>
+      <td>
+        <form class="event-edit" action="{{ url_for('index') }}" method="POST">
+          <input type="hidden" name="event_id" value="{{ event.id }}" />
+          <input type="Submit" value="Edit" />
+        </form>
+      </td>
+      <td>
+        <script>
+          function ConfirmDelete() {
+            return confirm("Are you sure you want to delete?");
+          }
+        </script>
+        <form
+          class="device-form"
+          action="{{ url_for('delete_event') }}"
+          method="POST"
+          onsubmit="return ConfirmDelete()"
+        >
+          <input type="hidden" name="event_id" value="{{ event.id }}" />
+          <input
+            type="Submit"
+            value="Delete"
+            style="background-color: #cc002c"
+          />
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% else %}
+<div>
+  <h4>You have no events.</h4>
+</div>
+{% endif %}
+<a href="{{ url_for('create_event') }}">Create Event</a>
 {% endblock %}

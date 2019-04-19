@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<h3>Event Creation Page</h3>
+<form
+  class="register-form"
+  action="{{ url_for('register_event') }}"
+  method="POST"
+>
+  <input
+    type="text"
+    maxlength="30"
+    name="title"
+    placeholder="Event Title"
+    required
+  />
+  <br />
+  <input type="date" name="date" required />
+  <br />
+  <input type="time" name="time" required />
+  <br />
+
+  <input type="submit" value="Create Event" />
+</form>
+{% endblock %}

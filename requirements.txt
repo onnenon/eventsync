@@ -1,9 +1,8 @@
 Flask
 Flask-login
 Flask-SQLAlchemy
-nose
 coverage
-rednose
+pytest
 SQL
 spylogger
 psycopg2-binary
