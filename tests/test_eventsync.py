@@ -62,3 +62,16 @@ def test_create_duplicate_user_failure(client):
         follow_redirects=True,
     )
     assert b"User already exists." in resp.data
+
+def test_incorrect_password(client):
+    client.post(
+        "/register",
+        data=dict(password="does", confirm_password="does", username="testUser3"),
+        follow_redirects=True,
+    )
+    resp = client.post(
+        "/login",
+        data=dict(password="incorrect", username="testUser3"),
+        follow_redirects=True,
+    )
+    assert b"Login failed"in resp.data
