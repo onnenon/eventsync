@@ -1,10 +1,17 @@
 import bcrypt
-from flask import Flask, flash, redirect, request, url_for, Blueprint
-from eventsync.models import User
-from eventsync.settings import LOGGER
-registeration = Blueprint('registeration',__name__)
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-@registeration.route("/register", methods=["POST"])
+from eventsync.models import User
+
+users = Blueprint("users", __name__)
+
+
+@users.route("/create_account", methods=["GET"])
+def create_account():
+    return render_template("create_account.html")
+
+
+@users.route("/register", methods=["POST"])
 def register():
     """User registration logic here
     

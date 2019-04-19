@@ -12,7 +12,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     username = db.Column(db.String(30), nullable=False, primary_key=True)
-    pw_hash = db.Column(db.Binary(60), nullable=False)
+    pw_hash = db.Column(db.LargeBinary(60), nullable=False)
 
     events = db.relationship("Event", backref="Creator", cascade="all")
 

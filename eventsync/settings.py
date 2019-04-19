@@ -8,7 +8,7 @@ LOGGER = spylogger.get_logger(log_level="DEBUG")
 
 SECRET_KEY = os.urandom(24)
 
-FLASK_ENV = "dev"
+FLASK_ENV = os.getenv("FLASK_ENV", "dev")
 
 DEBUG = True
 

@@ -1,12 +1,14 @@
 import bcrypt
-from flask import Flask, flash, redirect, request, url_for, Blueprint
-from flask_login import login_user
+from flask import Blueprint, flash, redirect, request, url_for
+from flask_login import login_user, logout_user
+
 from eventsync.models import User
 from eventsync.settings import LOGGER
 
-log_in = Blueprint('log_in',__name__)
+auth = Blueprint("auth", __name__)
 
-@log_in.route("/login", methods=["POST"])
+
+@auth.route("/login", methods=["POST"])
 def login():
     """Authentication logic here
 
@@ -30,4 +32,10 @@ def login():
     except Exception as e:
         LOGGER.error({"Exception", e})
     flash("Login failed", "Error")
+    return redirect(url_for("index"))
+
+
+@auth.route("/logout", methods=["GET", "POST"])
+def logout():
+    logout_user()
     return redirect(url_for("index"))
