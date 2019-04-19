@@ -5,7 +5,8 @@ clean:
 	find . -name '.pytest_cache' -type d -prune -exec rm -rf '{}' '+'
 
 test:
-	pytest -p no:warnings -v
+	coverage run --source=eventsync -m pytest -p no:warnings -v
+	coverage report
 
 run:
 	cd eventsync && flask run --host=0.0.0.0
