@@ -1,26 +1,64 @@
-{% extends "base.html" %} {% block content %}
-<form
-  class="register-form"
-  action="{{ url_for('users.register') }}"
-  method="POST"
->
-  <input
-    type="text"
-    maxlength="30"
-    name="username"
-    placeholder="Username"
-    required
-  />
-  <br />
-  <input type="password" name="password" placeholder="Password" required />
-  <br />
-  <input
-    type="password"
-    name="confirm_password"
-    placeholder="Confirm Password"
-    required
-  />
-  <br />
-  <input type="submit" value="Register" />
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EventSync</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="flex-wrapper">
+      <nav>
+        <a href="{{ url_for('index') }}"><h1>EventSync</h1></a>
+      </nav>
+      <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+
+        <ul class="flash-list">
+          {% for category, message in messages %}
+          <li class="flash-{{ category }}">
+            <div class="flash-category">{{ category }}!</div>
+            <div class="flash-message">{{ message }}</div>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% endif %} {% endwith %}
+      </div>
+      <form
+        class="register-form"
+        action="{{ url_for('users.register') }}"
+        method="POST"
+      >
+        <input
+          type="text"
+          maxlength="30"
+          name="username"
+          placeholder="Username"
+          required
+        />
+        <br />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <br />
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          required
+        />
+        <br />
+        <input type="submit" value="Register" />
+      </form>
+      <div class="footer">
+        <p class="copy">&copy 2019 Eventsync</p>
+      </div>
+    </div>
+  </body>
+</html>

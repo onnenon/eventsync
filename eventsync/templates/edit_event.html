@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<h3>Event Creation Page</h3>
+<form
+  class="register-form"
+  action="{{ url_for('events.update_event') }}"
+  method="POST"
+>
+  <input type="hidden" value="{{ event.id }}" name="event_id" />
+  <input
+    type="text"
+    maxlength="30"
+    name="title"
+    value="{{ event.title }}"
+    required
+  />
+  <br />
+  <input type="date" name="date" value="{{ event_date }}" required />
+  <br />
+  <input type="time" name="time" value="{{ event_time }}" required />
+  <br />
+
+  <input type="submit" value="Update Event" />
+</form>
+{% endblock %}

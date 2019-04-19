@@ -16,7 +16,11 @@
         {{ event.date_time }}
       </td>
       <td>
-        <form class="event-edit" action="{{ url_for('index') }}" method="POST">
+        <form
+          class="event-edit"
+          action="{{ url_for('events.edit_event') }}"
+          method="POST"
+        >
           <input type="hidden" name="event_id" value="{{ event.id }}" />
           <input type="Submit" value="Edit" />
         </form>
@@ -28,7 +32,7 @@
           }
         </script>
         <form
-          class="device-form"
+          class="event-edit"
           action="{{ url_for('events.delete_event') }}"
           method="POST"
           onsubmit="return ConfirmDelete()"
