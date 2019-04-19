@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            a:link {
+                color: black;
+                background-color: transparent;
+                text-decoration: none;
+                }
+
+            .header {
+                background: #86BBD8;
+                padding: 10px;
+                text-align: center;
+                font-size: 25px;
+                font-family: castellar;
+                }
+
+            .center {
+                margin: auto;
+                border-radius: 25px;
+                width: 33.33%;
+                padding: 20px;
+                background: #52DEE5;
+                box-shadow: 10px 10px grey;
+                }
+        </style>
+    </head>
+    <body style="background-color:#86BBD8">
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %} {% if
+            messages %}
+        
+            <ul class="flash-list">
+                {% for category, message in messages %}
+                <li class="flash-{{ category }}">
+                  <div class="flash-category">{{ category }}!</div>
+                  <div class="flash-message">{{ message }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        
+            {% endif %} {% endwith %}
+        </div>
+        
+        {% block content %}{% endblock %}
+    </body>
+</html>
