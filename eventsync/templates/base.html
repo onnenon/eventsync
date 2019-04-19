@@ -9,10 +9,15 @@
     />
   </head>
   <body>
-    <nav class="head-wrapper flex-wrapper">
+    <div class="head-wrapper flex-wrapper">
       <a href="{{ url_for('index') }}"><h1>EventSync</h1></a>
-      <a href="{{ url_for('auth.logout') }}">Logout</a>
-    </nav>
+      <div class="nav-menu">
+        <div class="username-display">
+          signed in as {{ session.get("user_id") }}
+        </div>
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+      </div>
+    </div>
     <div class="flex-wrapper">
       <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -32,7 +37,7 @@
 
       {% block content %}{% endblock %}
       <div class="footer">
-        <p class="copy">&copy 2019 Eventsync</p>
+        <!-- <p class="copy">&copy 2019 Eventsync</p> -->
       </div>
     </div>
   </body>
