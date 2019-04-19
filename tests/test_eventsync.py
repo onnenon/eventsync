@@ -49,3 +49,16 @@ def test_create_user_success(client):
         follow_redirects=True,
     )
     assert b"Registration Complete" in resp.data
+
+def test_create_duplicate_user_failure(client):
+    client.post(
+        "/register",
+        data=dict(password="does", confirm_password="does", username="testUser2"),
+        follow_redirects=True,
+    )
+    resp = client.post(
+        "/register",
+        data=dict(password="does", confirm_password="does", username="testUser2"),
+        follow_redirects=True,
+    )
+    assert b"User already exists." in resp.data
