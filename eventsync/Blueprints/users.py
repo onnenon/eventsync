@@ -23,7 +23,7 @@ def register():
 
     if password != request.form["confirm_password"]:
         flash("Passwords do not match", "Error")
-        return redirect(url_for("create_account"))
+        return redirect(url_for("users.create_account"))
 
     user = User.get_user(username)
     if user is None:

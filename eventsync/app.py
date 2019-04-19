@@ -30,7 +30,7 @@ def init_app():
 @app.route("/", methods=["GET"])
 def index():
     if "user_id" in session:
-        return redirect(url_for("event_list"))
+        return redirect(url_for("events.event_list"))
     return render_template("index.html")
 
 

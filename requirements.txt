@@ -3,7 +3,6 @@ Flask-login
 Flask-SQLAlchemy
 coverage
 pytest
-SQL
 spylogger
 psycopg2-binary
 bcrypt

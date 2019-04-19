@@ -35,7 +35,7 @@ def register_event():
     event = Event(title=title, date_time=date_time, creator=current_user.username)
     event.save()
     flash("Event Created", "Success")
-    return redirect(url_for("event_list"))
+    return redirect(url_for("event.event_list"))
 
 
 @events.route("/create_event", methods=["GET"])
