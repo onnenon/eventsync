@@ -14,4 +14,4 @@ Test:
     - export SPY_LOG_LOGGER="pretty-no-meta"
     - pip install -r requirements.txt
     - export PYTHONPATH="${PYTHONPATH}:${PWD}"
-    - ./run-tests.sh
+    - pytest -p no:warnings -v
