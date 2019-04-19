@@ -28,7 +28,7 @@ def login():
         if bcrypt.checkpw(password.encode("utf8"), user.pw_hash):
             login_user(user)
             flash("You are now signed in", "Success")
-            return redirect(url_for("event_list"))
+            return redirect(url_for("events.event_list"))
     except Exception as e:
         LOGGER.error({"Exception", e})
     flash("Login failed", "Error")

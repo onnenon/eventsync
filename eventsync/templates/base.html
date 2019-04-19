@@ -9,26 +9,31 @@
     />
   </head>
   <body>
-    <a href="{{ url_for('index') }}"><h1>EventSync</h1></a>
-    <div class="flash-messages">
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %}
-
-      <ul class="flash-list">
-        {% for category, message in messages %}
-        <li class="flash-{{ category }}">
-          <div class="flash-category">{{ category }}!</div>
-          <div class="flash-message">{{ message }}</div>
-        </li>
-        {% endfor %}
-      </ul>
-
-      {% endif %} {% endwith %}
-    </div>
-
-    {% block content %}{% endblock %}
-    <div class="footer">
+    <nav class="head-wrapper flex-wrapper">
+      <a href="{{ url_for('index') }}"><h1>EventSync</h1></a>
       <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </nav>
+    <div class="flex-wrapper">
+      <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+
+        <ul class="flash-list">
+          {% for category, message in messages %}
+          <li class="flash-{{ category }}">
+            <div class="flash-category">{{ category }}!</div>
+            <div class="flash-message">{{ message }}</div>
+          </li>
+          {% endfor %}
+        </ul>
+
+        {% endif %} {% endwith %}
+      </div>
+
+      {% block content %}{% endblock %}
+      <div class="footer">
+        <p class="copy">&copy 2019 Eventsync</p>
+      </div>
     </div>
   </body>
 </html>

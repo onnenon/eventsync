@@ -7,6 +7,7 @@ clean:
 test:
 	coverage run --source=eventsync -m pytest -p no:warnings -v
 	coverage report
+	coverage html
 
 run:
 	cd eventsync && flask run --host=0.0.0.0
