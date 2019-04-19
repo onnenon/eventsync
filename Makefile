@@ -4,8 +4,8 @@ clean:
 	find . -name '__pycache__' -type d -prune -exec rm -rf '{}' '+'
 	find . -name '.pytest_cache' -type d -prune -exec rm -rf '{}' '+'
 
-test: clean
-	./run-tests.sh
+test:
+	pytest -p no:warnings -v
 
 run:
 	cd eventsync && flask run --host=0.0.0.0

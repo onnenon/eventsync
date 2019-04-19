@@ -20,13 +20,15 @@ def client():
 def create_account(client, username, password):
     return client.post(
         "/register",
-        data=dict(password=password, confirm_password=password, username=username), follow_redirects=True)
+        data=dict(password=password, confirm_password=password, username=username),
+        follow_redirects=True,
+    )
 
 
 def login(client, username, password):
-    return client.post("/login",
-        data=dict(username=username, password=password),
-    follow_redirects=True)
+    return client.post(
+        "/login", data=dict(username=username, password=password), follow_redirects=True
+    )
 
 
 def test_index(client):
@@ -51,18 +53,21 @@ def test_passwords_dont_match(client):
 
 
 def test_create_user_success(client):
-    resp = create_account(client, "TestUser1", "pass") 
+    resp = create_account(client, "TestUser1", "pass")
     assert b"Registration Complete" in resp.data
+
 
 def test_create_duplicate_user_failure(client):
     create_account(client, "testUser2", "pass")
     resp = create_account(client, "testUser2", "pass")
     assert b"User already exists." in resp.data
 
+
 def test_incorrect_password(client):
     create_account(client, "testUser3", "pass")
     resp = login(client, "testUser3", "wrongpass")
-    assert b"Login failed"in resp.data
+    assert b"Login failed" in resp.data
+
 
 def test_login_successful(client):
     """Tests user login.
@@ -73,15 +78,16 @@ def test_login_successful(client):
     """
     create_account(client, "testUser4", "pass")
     resp = login(client, "testUser4", "pass")
-    assert b"You are now signed in"in resp.data
+    assert b"You are now signed in" in resp.data
     assert b"You have no events" in resp.data
+
 
 def test_create_event(client):
     create_account(client, "testUser5", "pass")
     login(client, "testUser5", "pass")
     resp = client.post(
         "/register_event",
-        data=dict(titel="Birthday", date="2019-01-01", time="13:00"),
+        data=dict(title="Birthday", date="2019-01-01", time="13:00"),
         follow_redirects=True,
     )
     assert b"Event Created" in resp.data
