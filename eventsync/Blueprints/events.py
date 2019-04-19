@@ -35,7 +35,7 @@ def register_event():
     event = Event(title=title, date_time=date_time, creator=current_user.username)
     event.save()
     flash("Event Created", "Success")
-    return redirect(url_for("event.event_list"))
+    return redirect(url_for("events.event_list"))
 
 
 @events.route("/create_event", methods=["GET"])
@@ -45,6 +45,7 @@ def create_event():
 
 
 @events.route("/delete_event", methods=["POST"])
+@login_required
 def delete_event():
     event_id = request.form["event_id"]
     event = Event.get_event(event_id)

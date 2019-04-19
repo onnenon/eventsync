@@ -17,17 +17,25 @@ def client():
     yield client
 
 
+def create_account(client, username, password):
+    return client.post(
+        "/register",
+        data=dict(password=password, confirm_password=password, username=username), follow_redirects=True)
+
+
+def login(client, username, password):
+    return client.post("/login",
+        data=dict(username=username, password=password),
+    follow_redirects=True)
+
+
 def test_index(client):
     resp = client.get("/")
     assert b'<div class="login">' in resp.data
 
 
 def test_login_with_bad_user(client):
-    resp = client.post(
-        "/login",
-        data=dict(username="dont_exist", password="random"),
-        follow_redirects=True,
-    )
+    resp = login(client, "dont_exist", "random")
     assert b"User not found" in resp.data
 
 
@@ -43,9 +51,37 @@ def test_passwords_dont_match(client):
 
 
 def test_create_user_success(client):
+    resp = create_account(client, "TestUser1", "pass") 
+    assert b"Registration Complete" in resp.data
+
+def test_create_duplicate_user_failure(client):
+    create_account(client, "testUser2", "pass")
+    resp = create_account(client, "testUser2", "pass")
+    assert b"User already exists." in resp.data
+
+def test_incorrect_password(client):
+    create_account(client, "testUser3", "pass")
+    resp = login(client, "testUser3", "wrongpass")
+    assert b"Login failed"in resp.data
+
+def test_login_successful(client):
+    """Tests user login.
+
+    Tests that when a user is logged in successfully that they receive a flash
+    message saying "You are now signed in, and that they start with no events
+    created.
+    """
+    create_account(client, "testUser4", "pass")
+    resp = login(client, "testUser4", "pass")
+    assert b"You are now signed in"in resp.data
+    assert b"You have no events" in resp.data
+
+def test_create_event(client):
+    create_account(client, "testUser5", "pass")
+    login(client, "testUser5", "pass")
     resp = client.post(
-        "/register",
-        data=dict(password="does", confirm_password="does", username="testUser1"),
+        "/register_event",
+        data=dict(titel="Birthday", date="2019-01-01", time="13:00"),
         follow_redirects=True,
     )
-    assert b"Registration Complete" in resp.data
+    assert b"Event Created" in resp.data
