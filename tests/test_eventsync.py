@@ -60,6 +60,13 @@ def test_create_duplicate_user_failure(client):
     assert b"User already exists." in resp.data
 
 def test_incorrect_password(client):
+    """Tests using an incorrect password
+
+    Tests to make sure that a login fails if the wrong password
+    is entered.
+    """
+    
+
     create_account(client, "testUser3", "pass")
     resp = login(client, "testUser3", "wrongpass")
     assert b"Login failed"in resp.data
