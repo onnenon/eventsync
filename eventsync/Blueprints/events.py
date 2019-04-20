@@ -44,6 +44,47 @@ def create_event():
     return render_template("create_event.html", user=current_user)
 
 
+@events.route("/edit_event", methods=["POST"])
+@login_required
+def edit_event():
+    event = Event.get_event(request.form["event_id"])
+    event_date = event.date_time.strftime("%Y-%m-%d")
+    event_time = event.date_time.strftime("%H:%M")
+
+    return render_template(
+        "edit_event.html",
+        event=event,
+        event_time=event_time,
+        event_date=event_date,
+        user=current_user,
+    )
+
+
+@events.route("/update_event", methods=["POST"])
+@login_required
+def update_event():
+    """Event creation logic here
+
+    Should return to create_event if fails, else should return to event_list
+    """
+    event_id = request.form["event_id"]
+    title = request.form["title"]
+    date = request.form["date"]
+    time = request.form["time"]
+
+    date_time_str = date + " " + time
+
+    LOGGER.debug({"Date": date_time_str})
+    date_time = datetime.strptime(date_time_str, "%Y-%m-%d %H:%M")
+
+    event = Event.get_event(event_id)
+    event.date_time = date_time
+    event.title = title
+    event.save()
+    flash("Event Updated", "Success")
+    return redirect(url_for("events.event_list"))
+
+
 @events.route("/delete_event", methods=["POST"])
 @login_required
 def delete_event():
@@ -51,5 +92,5 @@ def delete_event():
     event = Event.get_event(event_id)
     if event:
         event.delete()
-    flash("Event Deleted." "Success")
-    return redirect(url_for("event_list"))
+    flash("Event Deleted", "Success")
+    return redirect(url_for("events.event_list"))

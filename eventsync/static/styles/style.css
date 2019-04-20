@@ -1,5 +1,183 @@
-h1 {
-  font-family: sans-serif;
-  color: green;
-  margin: 1rem 0;
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web");
+
+body,
+html {
+  font-family: "Titillium Web", "Open Sans", sans-serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  color: #757575;
+  background-color: #ffffff;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  color: #555555;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+p {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+a {
+  text-decoration: none;
+  font-size: 16px;
+}
+.nav-menu a {
+  font-size: 14px;
+  color: #cc002c;
+  padding-right: 0;
+}
+a:visited {
+  color: #024a99;
+}
+.flex-wrapper {
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.head-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  padding: 20px;
+  justify-content: space-between;
+}
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+.head-logo img {
+  height: 100px;
+}
+.logo img {
+  width: 300px;
+  padding: 50px;
+}
+input {
+  font-family: "Open Sans", sans-serif;
+  padding: 10px;
+  margin: 0 0 30px 0;
+  width: 230px;
+  font-size: 16px;
+  background-color: #ececec;
+  border: 1px solid #b3b3b3;
+}
+input::placeholder {
+  color: #b3b3b3;
+}
+input[type="Submit"] {
+  background-color: #0459b6;
+  color: white;
+  font-weight: 800;
+  font-size: 14px;
+  border: solid 1px #024a99;
+  border-radius: 4px;
+  width: 120px;
+}
+input[type="Submit"]:hover {
+  background-color: #246496;
+}
+.text-block {
+  min-width: 800px;
+  padding: 10px 0 0 0;
+}
+.width-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+form {
+  margin: 20px 0;
+}
+.button {
+  background-color: #0459b6;
+  width: 230px;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-weight: 800;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  border: solid 1px #024a99;
+}
+.button:visited {
+  color: white;
+}
+.button:hover {
+  background-color: #2a6496;
+}
+.flash-list li {
+  list-style-type: none;
+  font-size: 14px;
+  text-align: left;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: row;
+}
+.flash-list {
+  margin: 0;
+  padding: 20px 0;
+  width: 800px;
+}
+.flash-Success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.flash-Error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.flash-Info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.flash-Warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.flash-category,
+.flash-message {
+  padding: 10px 0 10px 30px;
+}
+.flash-category {
+  font-weight: 900;
+}
+.username-display {
+  margin: 0;
+  font-size: 12px;
+  color: #8b8b8b;
+}
+table {
+  margin: 30px;
+}
+table,
+th,
+td {
+  border-bottom: 4px solid #ffffff;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: #f1f1f1;
+}
+td,
+th {
+  align-content: center;
+  text-align: center;
+  padding: 15px;
+  min-width: 120px;
+}
+th {
+  color: #024a99;
 }
