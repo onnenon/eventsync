@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<div>
+    <table>
+      <th>Username</th>
+      <th>Invite</th>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>
+          <form
+            class="event-edit"
+            action="{{ url_for('invites.send_invite') }}"
+            method="POST"
+          >
+            <input type="hidden" name="username" value="{{ user.username }}" />
+            <input type="Submit" value="Invite" />
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

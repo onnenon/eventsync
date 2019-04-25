@@ -59,6 +59,9 @@ def edit_event():
     event_time = event.date_time.strftime("%H:%M")
 
     accepted_users = BelongTo.get_accepted()
+
+    print(accepted_users)
+
     pending_users = BelongTo.get_pending()
 
     return render_template(

@@ -49,6 +49,14 @@ class User(db.Model):
         """
         return User.query.filter_by(username=username).first()
 
+    @staticmethod
+    def get_all():
+        return User.query.all()
+    
+    @staticmethod
+    def get_all_but_user(username):
+        return User.query.filter(User.username != username).all()
+
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -120,11 +128,17 @@ class BelongTo(db.Model):
 
     @staticmethod
     def get_accepted():
-        return BelongTo.query.filter_by(accepted=True)
+        accepted = BelongTo.query.filter_by(accepted=True).all()
+        if len(accepted) == 0:
+            return None
+        return accepted
 
     @staticmethod
     def get_pending():
-        return BelongTo.query.filter_by(accepted=False)
+        pending = BelongTo.query.filter_by(accepted=False).all()
+        if len(pending) == 0:
+            return None
+        return pending
 
 # class Tag(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
