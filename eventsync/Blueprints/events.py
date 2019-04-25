@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
-from eventsync.models import Event
+from eventsync.models import BelongTo, Event
 from eventsync.settings import LOGGER
 
 events = Blueprint("events", __name__)
@@ -58,12 +58,17 @@ def edit_event():
     event_date = event.date_time.strftime("%Y-%m-%d")
     event_time = event.date_time.strftime("%H:%M")
 
+    accepted_users = BelongTo.get_accepted()
+    pending_users = BelongTo.get_pending()
+
     return render_template(
         "edit_event.html",
         event=event,
         event_time=event_time,
         event_date=event_date,
         user=current_user,
+        accepted_users=accepted_users,
+        pending_users=pending_users
     )
 
 

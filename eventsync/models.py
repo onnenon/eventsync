@@ -62,6 +62,10 @@ class Event(db.Model):
     items = db.relationship("Item", backref="Event", cascade="all")
 
     @staticmethod
+    def get_all():
+        return Event.query.all()
+
+    @staticmethod
     def get_event(event_id):
         """Returns a Event Object for a specific event, if it exists.
 
@@ -102,7 +106,7 @@ class Item(db.Model):
 
 
 class BelongTo(db.Model):
-    user = db.Column(
+    username = db.Column(
         db.String(30), db.ForeignKey("user.username"), primary_key=True, nullable=False
     )
     eventID = db.Column(
@@ -110,6 +114,17 @@ class BelongTo(db.Model):
     )
     accepted = db.Column(db.Boolean, default=False, nullable=False)
 
+    @staticmethod
+    def get_all():
+        return BelongTo.query.all()
+
+    @staticmethod
+    def get_accepted():
+        return BelongTo.query.filter_by(accepted=True)
+
+    @staticmethod
+    def get_pending():
+        return BelongTo.query.filter_by(accepted=False)
 
 # class Tag(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
