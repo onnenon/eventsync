@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block content %}
+ {% extends "base.html" %} {% block content %}
 <h3>{{ event.title }}</h3>
 <form
   class="register-form"
@@ -27,4 +27,31 @@
   >{{ event.description }}</textarea><br />
   <input type="submit" value="Update Event" />
 </form>
+<br>
+<h3>Members</h3>
+<a href="{{ url_for('invites.member_list', event_id=event.id) }}">Invite Members</a>
+<h4>Accepted</h4>
+{% if accepted_users is not none %}
+<div>
+ <ul> 
+    {% for user in accepted_users %}
+    <li>{{user.username}}</li>
+    {% endfor %}
+  </ul>   
+</div>
+{% else %}
+<div>
+  <h4>This event has no active users.</h4>
+</div>
+{% endif %}
+<h4>Pending</h4>
+{% if pending_users is not none %}
+<div>
+ <ul> 
+    {% for user in pending_users %}
+    <li>{{user.username}}</li>
+    {% endfor %}
+  </ul>   
+</div>
+{% endif %}
 {% endblock %}

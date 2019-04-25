@@ -49,6 +49,14 @@ class User(db.Model):
         """
         return User.query.filter_by(username=username).first()
 
+    @staticmethod
+    def get_all():
+        return User.query.all()
+    
+    @staticmethod
+    def get_all_but_user(username):
+        return User.query.filter(User.username != username).all()
+
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,6 +68,10 @@ class Event(db.Model):
     )
 
     items = db.relationship("Item", backref="Event", cascade="all")
+
+    @staticmethod
+    def get_all():
+        return Event.query.all()
 
     @staticmethod
     def get_event(event_id):
@@ -102,7 +114,7 @@ class Item(db.Model):
 
 
 class BelongTo(db.Model):
-    user = db.Column(
+    username = db.Column(
         db.String(30), db.ForeignKey("user.username"), primary_key=True, nullable=False
     )
     eventID = db.Column(
@@ -110,6 +122,33 @@ class BelongTo(db.Model):
     )
     accepted = db.Column(db.Boolean, default=False, nullable=False)
 
+    def save(self):
+        """Addes the non-existing event to the DB."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        """Deletes the event from the DB."""
+        db.session.delete(self)
+        db.session.commit()
+
+    @staticmethod
+    def get_all():
+        return BelongTo.query.all()
+
+    @staticmethod
+    def get_accepted():
+        accepted = BelongTo.query.filter_by(accepted=True).all()
+        if len(accepted) == 0:
+            return None
+        return accepted
+
+    @staticmethod
+    def get_pending():
+        pending = BelongTo.query.filter_by(accepted=False).all()
+        if len(pending) == 0:
+            return None
+        return pending
 
 # class Tag(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

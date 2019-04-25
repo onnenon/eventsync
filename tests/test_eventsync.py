@@ -64,6 +64,13 @@ def test_create_duplicate_user_failure(client):
 
 
 def test_incorrect_password(client):
+    """Tests using an incorrect password
+
+    Tests to make sure that a login fails if the wrong password
+    is entered.
+    """
+    
+
     create_account(client, "testUser3", "pass")
     resp = login(client, "testUser3", "wrongpass")
     assert b"Login failed" in resp.data
@@ -83,6 +90,11 @@ def test_login_successful(client):
 
 
 def test_create_event(client):
+    """Tests event creation. 
+    Tests that an event can be created, by checking to make sure a flash message is 
+    recieved saying "Event created"
+    
+    """
     create_account(client, "testUser5", "pass")
     login(client, "testUser5", "pass")
     resp = client.post(
