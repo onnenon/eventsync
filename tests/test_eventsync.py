@@ -87,7 +87,7 @@ def test_create_event(client):
     login(client, "testUser5", "pass")
     resp = client.post(
         "/register_event",
-        data=dict(title="Birthday", date="2019-01-01", time="13:00"),
+        data=dict(title="Birthday", date="2019-01-01", time="13:00", description=""),
         follow_redirects=True,
     )
     assert b"Event Created" in resp.data

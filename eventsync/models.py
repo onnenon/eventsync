@@ -9,12 +9,11 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
-    __tablename__ = "users"
-
     username = db.Column(db.String(30), nullable=False, primary_key=True)
     pw_hash = db.Column(db.LargeBinary(60), nullable=False)
 
     events = db.relationship("Event", backref="Creator", cascade="all")
+    items = db.relationship("Item", backref="Claimer")
 
     @property
     def is_active(self):
@@ -52,14 +51,15 @@ class User(db.Model):
 
 
 class Event(db.Model):
-    __tablename__ = "events"
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(30), nullable=False)
-    creator = db.Column(db.String(30), db.ForeignKey("users.username"), nullable=False)
+    creator = db.Column(db.String(30), db.ForeignKey("user.username"), nullable=False)
+    description = db.Column(db.String(150), default="", nullable=False)
     date_time = db.Column(
         db.DateTime(timezone=True), default=datetime.utcnow, nullable=False
     )
+
+    items = db.relationship("Item", backref="Event", cascade="all")
 
     @staticmethod
     def get_event(event_id):
@@ -90,5 +90,35 @@ class Event(db.Model):
         invites: pending invites
 """
 
-# class Friend(db.Model):
-#     __tablename__ = "friends"
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    claimedBy = db.Column(db.String(30), db.ForeignKey("user.username"), nullable=False)
+    claimed = db.Column(db.Boolean, default=False, nullable=False)
+    eventID = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+
+    # tags = db.relationship("tags", backref="Item", cascade="all")
+
+
+class BelongTo(db.Model):
+    user = db.Column(
+        db.String(30), db.ForeignKey("user.username"), primary_key=True, nullable=False
+    )
+    eventID = db.Column(
+        db.Integer, db.ForeignKey("event.id"), primary_key=True, nullable=False
+    )
+    accepted = db.Column(db.Boolean, default=False, nullable=False)
+
+
+# class Tag(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(30), default="", nullable=False)
+
+
+# tags = db.Table(
+#     "tags",
+#     db.Column("tag_id", db.Integer, db.ForeignKey("tag.id"), primary_key=True),
+#     db.Column("event_id", db.Integer, db.ForeignKey("event.id"), primary_key=True),
+# )
+

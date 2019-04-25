@@ -14,10 +14,10 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - eventsync-db
+      - db
     environment:
       DB: "postgres"
-      FLASK_APP: "eventsync"
+      FLASK_APP: "eventsync:app"
       FLASK_DEBUG: 1
       DB_HOST: "db"
       DB_PORT: "5432"
