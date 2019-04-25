@@ -26,13 +26,20 @@ def register_event():
     title = request.form["title"]
     date = request.form["date"]
     time = request.form["time"]
+    description = request.form["description"]
+
 
     date_time_str = date + " " + time
 
     LOGGER.debug({"Date": date_time_str})
     date_time = datetime.strptime(date_time_str, "%Y-%m-%d %H:%M")
 
-    event = Event(title=title, date_time=date_time, creator=current_user.username)
+    event = Event(
+        title=title,
+        date_time=date_time,
+        creator=current_user.username,
+        description=description,
+    )
     event.save()
     flash("Event Created", "Success")
     return redirect(url_for("events.event_list"))
@@ -71,6 +78,7 @@ def update_event():
     title = request.form["title"]
     date = request.form["date"]
     time = request.form["time"]
+    description = request.form["description"]
 
     date_time_str = date + " " + time
 
@@ -80,6 +88,7 @@ def update_event():
     event = Event.get_event(event_id)
     event.date_time = date_time
     event.title = title
+    event.description = description
     event.save()
     flash("Event Updated", "Success")
     return redirect(url_for("events.event_list"))

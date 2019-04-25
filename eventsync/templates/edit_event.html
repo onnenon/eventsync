@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-<h3>Event Creation Page</h3>
+<h3>{{ event.title }}</h3>
 <form
   class="register-form"
   action="{{ url_for('events.update_event') }}"
@@ -18,7 +18,13 @@
   <br />
   <input type="time" name="time" value="{{ event_time }}" required />
   <br />
-
+  <textarea
+    rows="4"
+    cols="50"
+    name="description"
+    maxlength="150"
+    required
+  >{{ event.description }}</textarea><br />
   <input type="submit" value="Update Event" />
 </form>
 {% endblock %}
