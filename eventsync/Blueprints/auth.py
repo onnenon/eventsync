@@ -38,4 +38,5 @@ def login():
 @auth.route("/logout", methods=["GET", "POST"])
 def logout():
     logout_user()
+    flash("You have have successfully logged out.", "Info")
     return redirect(url_for("index"))

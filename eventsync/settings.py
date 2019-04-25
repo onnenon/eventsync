@@ -4,7 +4,7 @@ import spylogger
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
-LOGGER = spylogger.get_logger(log_level="DEBUG")
+LOGGER = spylogger.get_logger()
 
 SECRET_KEY = os.urandom(24)
 
