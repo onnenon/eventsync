@@ -29,7 +29,7 @@
 </form>
 <br>
 <h3>Members</h3>
-<a href="{{ url_for('invites.member_list') }}">Invite Members</a>
+<a href="{{ url_for('invites.member_list', event_id=event.id) }}">Invite Members</a>
 <h4>Accepted</h4>
 {% if accepted_users is not none %}
 <div>
@@ -45,4 +45,13 @@
 </div>
 {% endif %}
 <h4>Pending</h4>
+{% if pending_users is not none %}
+<div>
+ <ul> 
+    {% for user in pending_users %}
+    <li>{{user.username}}</li>
+    {% endfor %}
+  </ul>   
+</div>
+{% endif %}
 {% endblock %}

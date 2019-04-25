@@ -122,6 +122,16 @@ class BelongTo(db.Model):
     )
     accepted = db.Column(db.Boolean, default=False, nullable=False)
 
+    def save(self):
+        """Addes the non-existing event to the DB."""
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        """Deletes the event from the DB."""
+        db.session.delete(self)
+        db.session.commit()
+
     @staticmethod
     def get_all():
         return BelongTo.query.all()
